@@ -157,7 +157,36 @@ def get_about():
     '''
     return model.about()
 #-----------------------------------------------------------------------------
+# display the user profile page
+@get('/profile')
+def get_profile():
+    '''
+        get_profile
+        
+        Serves the profile page
+    '''
+    return model.profile()
 
+# update the passward of users
+@post('/profile')
+def post_update():
+    '''
+        post_update
+        
+        Handles passward update attempts
+    '''
+    old_password = request.forms.get('old_password')
+    new_password = request.forms.get('new_password')
+    retype_password = request.forms.get('confirm_password')
+
+    if new_password == retype_password:
+        return model.update(old_password, new_password)
+    else:
+        return model.update_failture()
+
+
+
+#-----------------------------------------------------------------------------
 # Help with debugging
 @post('/debug/<cmd:path>')
 def post_debug(cmd):
@@ -166,6 +195,6 @@ def post_debug(cmd):
 #-----------------------------------------------------------------------------
 
 # 404 errors, use the same trick for other types of errors
-@error(404)
-def error(error): 
-    return model.handle_errors(error)
+# @error(404)
+# def error(error): 
+#     return model.handle_errors(error)

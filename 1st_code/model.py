@@ -10,6 +10,8 @@ import random
 import sqlite3
 # Initialise our views, all arguments are defaults for the template
 page_view = view.View()
+# Initialise a variable which is the current user name, the default one is "tourist"
+cur_username = "tourist"
 
 #-----------------------------------------------------------------------------
 # Index
@@ -87,7 +89,10 @@ def login_check(username, password):
         login = False
     
         
-    if login: 
+    if login:
+        global cur_username
+        cur_username = username
+        #change the cur_username to global variable
         return page_view("valid", name=username)
     else:
         return page_view("invalid", reason=err_str)
@@ -119,6 +124,44 @@ def about_garble():
     "provide user generated content in real-time will have multiple touchpoints for offshoring."]
     return garble[random.randint(0, len(garble) - 1)]
 
+#-----------------------------------------------------------------------------
+# Profile
+#-----------------------------------------------------------------------------
+
+def profile():
+    '''
+        about
+        Returns the view for the user profile page
+    '''
+    return page_view("profile", cur_name=cur_username)
+
+def update(old, new):
+    '''
+        update
+        update the password of users
+
+        :: username :: The username
+        :: password :: The password
+
+        Returns either a view for valid credentials, or a view for invalid credentials
+    '''
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM user WHERE password=? AND username=?", (old, cur_username))
+    print(cur_username)
+    cur_data = c.fetchone()
+
+    if cur_data is None:
+        return page_view("update_failture1")
+    else:
+        c.execute("UPDATE user SET password = ? WHERE password = ?", (new, old))
+        conn.commit()
+        c.close()
+        return page_view("update_success")
+
+def update_failture():
+    return page_view("update_failture2")
+
 
 #-----------------------------------------------------------------------------
 # Debug
@@ -136,7 +179,7 @@ def debug(cmd):
 # Custom 404 error page
 #-----------------------------------------------------------------------------
 
-def handle_errors(error):
-    error_type = error.status_line
-    error_msg = error.body
-    return page_view("error", error_type=error_type, error_msg=error_msg)
+# def handle_errors(error):
+#     error_type = error.status_line
+#     error_msg = error.body
+#     return page_view("error", error_type=error_type, error_msg=error_msg)

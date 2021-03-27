@@ -1,0 +1,24 @@
+<p>
+    <style>
+        p {text-align: center;}
+        form {text-align: center;}
+    </style>
+    <p></p>
+    <p style="text-align:center; font-size:30px">User profile</p>
+    <p></p>
+    <p style="text-align:left; font-size:26px">1. Name: ${cur_name}</p>
+    <p></p>
+    <p style="text-align:left; font-size:26px">2. Current state: </p>
+    <p></p>
+    <p style="text-align:left; font-size:26px">3. Change passward: </p>
+    <form style="text-align:left; font-size:22px" action="/profile" method="post">
+        Current password: <input name="old_password" type="password" />
+    </br>
+        New password: <input name="new_password" type="password" />
+    </br>
+        Retype password: <input name="confirm_password" type="text" />
+    </br>
+        <input value="Change passward" type="submit" />
+    </form>
+</p>
+</center>
