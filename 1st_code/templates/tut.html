@@ -1,0 +1,130 @@
+  <style>
+    /* 设置导航栏的样式 */
+    ul {
+      /* 删除边距和填充, 移除小标志 */
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      /* 放在侧边 全屏高度 */
+      width: 25%;
+      height: 100%;
+      /* 如果导航栏选项多允许滚动 */
+      position: fixed;
+      overflow: auto;
+
+      background-color: #f1f1f1;
+      border: 6px solid rgb(144, 179, 129);
+    }
+
+    /* 建立垂直的导航栏 */
+    li a:link,
+    a:visited {
+      /* 把整体变为可点击 设置宽度 */
+      /* 不能设置height否则不能居中 */
+      display: block;
+      font-weight: bold;
+      padding: 16px;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    /* 让链接居中 并且加上边框 */
+    li {
+      text-align: center;
+      border-bottom: 1px solid #555;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    li a:active {
+      background-color: thistle;
+      color: white;
+    }
+
+    li a:hover:not(.active) {
+      background-color: cornflowerblue;
+      color: white;
+    }
+
+    div {
+      margin-left:25%;
+      padding:10px 50px;
+      height:600px;
+    }
+  </style>
+
+<body>
+  <ul class="sidebar">
+    <li><a href="#home">主页</a></li>
+    <li><a href="#html">HTML</a></li>
+    <li><a href="#css">CSS</a></li>
+    <li><a href="#sql">SQL</a></li>
+    <!-- #仅作为测试 -->
+  </ul>
+
+  <div id="home">
+    <h2>主页</h2>
+    <h3>滚动这个区域</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25%
+      width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long
+      (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>
+
+  <div id="html">
+    <h2>HTML</h2>
+    <h3>HTML</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25%
+      width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long
+      (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>
+
+  <div id="css">
+    <h2>CSS</h2>
+    <h3>CSS</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25%
+      width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long
+      (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>
+
+  <div id="sql">
+    <h2>SQL</h2>
+    <h3>SQL</h3>
+    <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25%
+      width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+    <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long
+      (for example if it has over 50 links inside of it).</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+    <p>Some text..</p>
+  </div>
+</body>

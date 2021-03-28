@@ -183,3 +183,11 @@ def debug(cmd):
 #     error_type = error.status_line
 #     error_msg = error.body
 #     return page_view("error", error_type=error_type, error_msg=error_msg)
+
+#-----------------------------------------------------------------------------
+# Tutorial
+#-----------------------------------------------------------------------------
+def tut():
+    # returns the view for tutorial page
+    return page_view("tut")
+#-----------------------------------------------------------------------------

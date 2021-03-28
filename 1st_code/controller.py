@@ -198,3 +198,18 @@ def post_debug(cmd):
 # @error(404)
 # def error(error): 
 #     return model.handle_errors(error)
+
+
+#-----------------------------------------------------------------------------
+
+@get('/tut')
+def get_tut():
+    '''
+        get_tut
+        
+        Serves the tutorial page
+    '''
+    return model.tut()
+
+
+#-----------------------------------------------------------------------------
