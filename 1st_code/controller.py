@@ -4,7 +4,7 @@
     maybe some simple program logic
 '''
 
-from bottle import route, get, post, error, request, static_file
+from bottle import route, get, post, error, request, static_file, template
 
 import model
 
@@ -216,4 +216,45 @@ def get_tut():
     return model.tut()
 
 
+#-----------------------------------------------------------------------------
+
+@get('/admin_profile')
+def get_admin():
+    '''
+        get_admin
+
+        serves for outputing admin page
+    '''
+
+    return model.admin()
+
+@get('/user_list')
+def get_user_list():
+    '''
+        get_user_list
+
+        serves for getting users list
+    '''
+
+    return template('./templates/user_list', user_list = model.user_list())
+
+@post('/admin_profile_1')
+def add_user():
+    added_user_name = request.forms.get('added_user')
+    return model.add_user(added_user_name)
+
+@post('/admin_profile_2')
+def delete_user():
+    deleted_user_name = request.forms.get('deleted_user')
+    return model.delete_user(deleted_user_name)
+
+@post('/admin_profile_3')
+def mute_user():
+    muted_user_name = request.forms.get('muted_user')
+    return model.mute_user(muted_user_name)
+
+@post('/admin_profile_4')
+def unmute_user():
+    unmuted_user_name = request.forms.get('unmuted_user')
+    return model.unmute_user(unmuted_user_name)
 #-----------------------------------------------------------------------------

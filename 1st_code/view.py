@@ -18,10 +18,11 @@ class View():
     def __init__(self, 
         template_path="templates/",  # Path to template files
         template_extension=".html",  # Extension of templates, self can be overridden
-        **kwargs): # Used to pass any global format arguments
+        **kwargs,): # Used to pass any global format arguments
         self.template_path = template_path
         self.template_extension = template_extension
         self.global_renders = kwargs
+
 
 
     def __call__(self, *args, **kwargs):

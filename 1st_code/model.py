@@ -142,7 +142,18 @@ def profile():
         about
         Returns the view for the user profile page
     '''
-    return page_view("profile", cur_name=cur_username)
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT mute FROM user WHERE username = ?", (cur_username,))
+    cur_data = c.fetchone()
+    if cur_data is None:
+        return page_view("profile", cur_name=cur_username, mute = "Normal")
+    else:
+        if (cur_data[0] == '1'):
+            return page_view("profile", cur_name=cur_username, mute = "Muted")
+        elif (cur_data[0] == '0'):
+            return page_view("profile", cur_name=cur_username, mute = "Normal")
+    
 
 def update(old, new):
     '''
@@ -157,7 +168,6 @@ def update(old, new):
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM user WHERE password=? AND username=?", (old, cur_username))
-    print(cur_username)
     cur_data = c.fetchone()
 
     if cur_data is None:
@@ -199,4 +209,76 @@ def debug(cmd):
 def tut():
     # returns the view for tutorial page
     return page_view("tut")
+#-----------------------------------------------------------------------------
+# Admin
+#-----------------------------------------------------------------------------
+def admin():
+    # returns the view for tutorial page
+    return page_view("admin", cur_name=cur_username)
+
+def user_list():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM user")
+    cur_data = c.fetchall()
+    list = []
+    for a in cur_data:
+        list.append(a[0])
+    return list
+
+def add_user(new_name):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM user")
+    
+    userlist= [item[0] for item in c.fetchall()]
+    if new_name in userlist:
+        return page_view("add_failure", name = new_name)
+    else:
+        c.execute("INSERT INTO user(username, password) VALUES (?,?)", (new_name, 123))
+        conn.commit()
+        c.close()
+        return page_view("add_success", name = new_name)
+
+def delete_user(delete_name):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM user")
+    
+    userlist= [item[0] for item in c.fetchall()]
+    if delete_name not in userlist:
+        return page_view("delete_failure", name = delete_name)
+    else:
+        c.execute("DELETE FROM user WHERE username = ?", (delete_name,))
+        conn.commit()
+        c.close()
+        return page_view("delete_success", name = delete_name)
+
+def mute_user(mute_name):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM user")
+    
+    userlist= [item[0] for item in c.fetchall()]
+    if mute_name not in userlist:
+        return page_view("mute_failure", name = mute_name)
+    else:
+        c.execute("UPDATE user SET mute = ? WHERE username = ?", (1, mute_name))
+        conn.commit()
+        c.close()
+        return page_view("mute_success", name = mute_name)
+
+def unmute_user(unmute_name):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT username FROM user")
+    
+    userlist= [item[0] for item in c.fetchall()]
+    if unmute_name not in userlist:
+        return page_view("unmute_failure", name = unmute_name)
+    else:
+        c.execute("UPDATE user SET mute = ? WHERE username = ?", (0, unmute_name))
+        conn.commit()
+        c.close()
+        return page_view("unmute_success", name = unmute_name)
 #-----------------------------------------------------------------------------
