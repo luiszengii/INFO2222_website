@@ -139,7 +139,11 @@ def post_register():
     if password == cpassword:
         return model.register(username, password)
     if password != cpassword:
-        return '<p>The two passwords entered do not match </p>' 
+        return '''<style>
+    	      p {text-align: center;}
+                      form {text-align: center;}
+                      </style><p>The two passwords entered do not match </p>
+ 	     <p><a href="/register">back to register page</a></p>'''
 
 
 

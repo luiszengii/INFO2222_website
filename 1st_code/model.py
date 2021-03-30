@@ -61,9 +61,18 @@ def register(username, password):
         c.execute("INSERT INTO user(username, password) VALUES (?,?)", (username, password))
         conn.commit()
         c.close()
-        return '<p>The user was inserted into the database</p>' 
+        return '''<style>
+    	      p {text-align: center;}
+                      form {text-align: center;}
+                      </style><p>The user was inserted into the database</p>
+                      <p><a href="/login">go to login page</a></p>'''
     if username in userlist:
-        return '<p>The user already exsits in the database</p>' 
+        return '''<style>
+    	      p {text-align: center;}
+                      form {text-align: center;}
+                      </style>
+	      <p>The user already exsits in the database</p>
+	      <p><a href="/register">go back to register page</a></p>'''
 
 #--------------------------------------------------------------------------
 # Check the login credentials
