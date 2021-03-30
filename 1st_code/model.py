@@ -144,15 +144,18 @@ def profile():
     '''
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
-    c.execute("SELECT mute FROM user WHERE username = ?", (cur_username,))
+    c.execute("SELECT admin,mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
-    if cur_data is None:
-        return page_view("profile", cur_name=cur_username, mute = "Normal")
+    if cur_data[0] == 1:
+        return page_view("admin", cur_name=cur_username)
     else:
-        if (cur_data[0] == '1'):
-            return page_view("profile", cur_name=cur_username, mute = "Muted")
-        elif (cur_data[0] == '0'):
+        if cur_data is None:
             return page_view("profile", cur_name=cur_username, mute = "Normal")
+        else:
+            if (cur_data[1] == 1):
+                return page_view("profile", cur_name=cur_username, mute = "Muted")
+            elif (cur_data[1] == 0):
+                return page_view("profile", cur_name=cur_username, mute = "Normal")
     
 
 def update(old, new):
@@ -212,9 +215,8 @@ def tut():
 #-----------------------------------------------------------------------------
 # Admin
 #-----------------------------------------------------------------------------
-def admin():
-    # returns the view for tutorial page
-    return page_view("admin", cur_name=cur_username)
+# def admin():
+#     return page_view("admin", cur_name=cur_username)
 
 def user_list():
     conn = sqlite3.connect('user.db')

@@ -172,7 +172,7 @@ def get_profile():
     return model.profile()
 
 # update the passward of users
-@post('/profile')
+@post('/profile_0')
 def post_update():
     '''
         post_update
@@ -218,15 +218,14 @@ def get_tut():
 
 #-----------------------------------------------------------------------------
 
-@get('/admin_profile')
-def get_admin():
-    '''
-        get_admin
+# @get('/admin_profile')
+# def get_admin():
+#     '''
+#         get_admin
 
-        serves for outputing admin page
-    '''
-
-    return model.admin()
+#         serves for outputing admin page
+#     '''
+#     return model.admin()
 
 @get('/user_list')
 def get_user_list():
@@ -238,22 +237,22 @@ def get_user_list():
 
     return template('./templates/user_list', user_list = model.user_list())
 
-@post('/admin_profile_1')
+@post('/profile_1')
 def add_user():
     added_user_name = request.forms.get('added_user')
     return model.add_user(added_user_name)
 
-@post('/admin_profile_2')
+@post('/profile_2')
 def delete_user():
     deleted_user_name = request.forms.get('deleted_user')
     return model.delete_user(deleted_user_name)
 
-@post('/admin_profile_3')
+@post('/profile_3')
 def mute_user():
     muted_user_name = request.forms.get('muted_user')
     return model.mute_user(muted_user_name)
 
-@post('/admin_profile_4')
+@post('/profile_4')
 def unmute_user():
     unmuted_user_name = request.forms.get('unmuted_user')
     return model.unmute_user(unmuted_user_name)
