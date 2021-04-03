@@ -65,7 +65,7 @@ ul.tutorial {
     /* 如果导航栏选项多允许滚动 */
     position: fixed;
     top: 200px;
-    left: 60px;
+    left: 130px;
     overflow: auto;
     /* 圆角边框 */
     border: 6px solid #336666;
