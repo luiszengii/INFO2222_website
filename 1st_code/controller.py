@@ -186,7 +186,7 @@ def post_update():
     if new_password == retype_password:
         return model.update(old_password, new_password)
     else:
-        return model.update_failture()
+        return model.update_failure()
 
 
 
@@ -217,15 +217,6 @@ def get_tut():
 
 
 #-----------------------------------------------------------------------------
-
-# @get('/admin_profile')
-# def get_admin():
-#     '''
-#         get_admin
-
-#         serves for outputing admin page
-#     '''
-#     return model.admin()
 
 @get('/user_list')
 def get_user_list():
