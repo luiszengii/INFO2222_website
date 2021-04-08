@@ -1,4 +1,4 @@
-ul {
+#navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -12,6 +12,7 @@ ul {
     font-weight: 700;
     font-size: xx-large;
     font-family: fantasy;
+    display: block;
 }
 
 li {
@@ -43,14 +44,6 @@ img {
     margin: 0 auto;
     max-height: 45%;
     max-width: 45%;
-}
-
-html, body, {
-    position:fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
 }
 
 
@@ -120,7 +113,6 @@ a.tutorial:active {
 }
 
 div.tutorial {
-    margin-left: 30%;
-    padding: 10px 50px;
-    height: 600px;
+    margin-left: 25%;
+    padding: 2% 10% 5%;
 }
