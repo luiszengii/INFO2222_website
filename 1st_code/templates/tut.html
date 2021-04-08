@@ -3,7 +3,7 @@
     <li class="tutorial"><a class="tutorial" href="#web">Web Basics</a></li>
     <li class="tutorial"><a class="tutorial" href="#html">HTML</a></li>
     <li class="tutorial"><a class="tutorial" href="#css">CSS</a></li>
-    <li class="tutorial"><a class="tutorial" href="#sql">SQL</a></li>
+    <li class="tutorial"><a class="tutorial" href="#javascript">JavaScript</a></li>
     <!-- #仅作为测试 -->
   </ul>
 
@@ -17,7 +17,7 @@
     <h4>Clients and Servers</h4>
     <p style="text-align:left;">Computers connected to the web are called <strong>clients</strong> and <strong>servers</strong>. A simplified diagram of how they interact might look like this:</p>
     <p style="text-align:left;">
-      <img src="./static/img/client&server.png">
+      <img src="img/client&server.png">
     </p>
     <li style="text-align:left;">Clients are the typical web user's internet-connected devices (for example, your computer connected to your Wi-Fi, or your phone connected to your mobile network) and web-accessing software available on those devices (usually a web browser like Firefox or Chrome).</li>
     <li style="text-align:left;">Servers are computers that store webpages, sites, or apps. When a client device wants to access a webpage, a copy of the webpage is downloaded from the server onto the client machine to be displayed in the user's web browser.</li>
@@ -125,7 +125,7 @@
       <h4>HTML Page Structure</h4>
       <p style="text-align:left;">Below is a visualization of an HTML page structure:</p>
       <p style="text-align:left;">
-        <img alt="Sample Structure" src="./static/img/HTML_structure.png">
+        <img alt="Sample Structure" src="img/HTML_structure.png">
       </p>
       </div>
 
@@ -170,35 +170,22 @@
     <p style="text-align:left;">One of many JavaScript HTML methods is <code>getElementById()</code>.</p>
     <p style="text-align:left;">The example below "finds" an HTML element (with id="demo"),
     and changes the element content (innerHTML) to "Hello JavaScript":</p>
-    <p style="text-align:left;">
-      <img src="./static/img/JavaScript_demo1.png">
-    </p>
+    document.<span class="jspropertycolor" style="color:black">getElementById</span>(<span class="jsstringcolor" style="color:brown">"demo"</span>).<span class="jspropertycolor" style="color:black">innerHTML</span> = <span class="jsstringcolor" style="color:brown">"Hello JavaScript"</span>;
     <p style="text-align:left;">JavaScript accepts both double and single quotes:</p>
-    <p style="text-align:left;">
-      <img src="./static/img/JavaScript_demo2.png">
-    </p>
-    <br>
-    <h4>JavaScript Can Change HTML Attribute Values</h4>
-    <p style="text-align:left;">In this example JavaScript changes the value of the <code>src</code> (source) attribute of an <code>&lt;img&gt;</code> tag.</p>
+    document.<span class="jspropertycolor" style="color:black">getElementById</span>(<span class="jsstringcolor" style="color:brown">'demo'</span>).<span class="jspropertycolor" style="color:black">innerHTML</span> = <span class="jsstringcolor" style="color:brown">'Hello JavaScript'</span>;
     <br>
     <h4>JavaScript Can Change HTML Styles (CSS)</h4>
     <p style="text-align:left;">Changing the style of an HTML element, is a variant of changing an HTML
     attribute:</p>
-    <p style="text-align:left;">
-      <img src="./static/img/JavaScript_demo3.png"
-    </p>
+    document.<span class="jspropertycolor" style="color:black">getElementById</span>(<span class="jsstringcolor" style="color:brown">"demo"</span>).<span class="jspropertycolor" style="color:black">style</span>.<span class="jspropertycolor" style="color:black">fontSize</span> = <span class="jsstringcolor" style="color:brown">"35px"</span>;
     <br>
     <h4>JavaScript Can Hide HTML Elements</h4>
     <p style="text-align:left;">Hiding HTML elements can be done by changing the <code>display</code> style:</p>
-    <p style="text-align:left;">
-      <img src="./static/img/JavaScript_demo4.png"
-    </p>
+    document.<span class="jspropertycolor" style="color:black">getElementById</span>(<span class="jsstringcolor" style="color:brown">"demo"</span>).<span class="jspropertycolor" style="color:black">style</span>.<span class="jspropertycolor" style="color:black">display</span> = <span class="jsstringcolor" style="color:brown">"none"</span>;
     <br>
     <h4>JavaScript Can Show HTML Elements</h4>
     <p style="text-align:left;">Showing hidden HTML elements can also be done by changing the <code class="w3-codespan">display</code> style:</p>
-    <p style="text-align:left;">
-      <img src="./static/img/JavaScript_demo5.png"
-    </p>
+    document.<span class="jspropertycolor" style="color:black">getElementById</span>(<span class="jsstringcolor" style="color:brown">"demo"</span>).<span class="jspropertycolor" style="color:black">style</span>.<span class="jspropertycolor" style="color:black">display</span> = <span class="jsstringcolor" style="color:brown">"block"</span>;
   </div>
 
 
