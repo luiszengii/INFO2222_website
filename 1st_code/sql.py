@@ -44,17 +44,27 @@ class SQLDatabase():
         self.commit()
 
         # Create the users table
+        # added a new attr bookmark, null as default
+        # create discussion board table; if the user been deleted, so would its discussion
         self.execute("""CREATE TABLE Users(
             Id INT,
             username TEXT,
             password TEXT,
-            admin INTEGER DEFAULT 0
+            admin INTEGER DEFAULT 0,
+            bookmark TEXT,
+            primary key(username)
+        );
+        CREATE TABLE Discussions(
+            dis_id INT not null auto_increments,
+            username TEXT not null,
+            dis_txt char(254),
+            category char(20),
+            primary key(dis_id),
+            foreign key(username) references Users on delete cascade
         )""")
 
-        self.commit()
-
-        # Add our admin user
-        self.add_user('admin', admin_pasword, admin=1)
+        # Add our default admin user, pw: admin_password, admin=1 to clarify admin
+        self.add_user('admin', admin_password, admin=1)
 
     #-----------------------------------------------------------------------------
     # User handling
@@ -90,3 +100,19 @@ class SQLDatabase():
             return True
         else:
             return False
+
+#-----------------------------------------------------------------------------
+# Discussion Board (max 254 letters)
+#-----------------------------------------------------------------------------
+    # Add discussion to the database
+    def add_discussion(self,username, dis_txt, category):
+        sql_cmd = """
+                INSERT INTO Discussion
+                VALUES({username}, '{dis_txt}', '{category}')
+            """
+
+        sql_cmd = sql_cmd.format(username=username, dis_txt=dis_txt, category=category)
+
+        self.execute(sql_cmd)
+        self.commit()
+        return True

@@ -1,15 +1,22 @@
-
 Login with a username and password
 </p>
 <p>
-        <style>
-            p {text-align: center;}
-            form {text-align: center;}
-        </style>
-        <p></p>
-        <p style="text-align:center; font-size:30px">website name</p>
-        <p></p>
-        <p style="text-align:center; font-size:25px">Login</p>
+    <style>
+        p {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
+    </style>
+<p></p>
+
+<p style="text-align:center; font-size:35px">website name</p>
+<p></p>
+
+<!-- data send to @post('/login') in controller.py -->
+<p style="text-align:center; font-size:25px">Login</p>
 <form action="/login" method="post">
     Username: <input name="username" type="text" />
 </br>
@@ -17,7 +24,8 @@ Login with a username and password
 </br>
     <input value="Login" type="submit" />
 </form>
+
+<!-- a register button for new comers -->
 <p><a href="/register">register</a></p>
 </p>
 </center>
-

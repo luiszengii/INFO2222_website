@@ -4,6 +4,7 @@
     maybe some simple program logic
 '''
 
+from os import curdir
 from bottle import route, get, post, error, request, static_file, template
 
 import model
@@ -100,9 +101,6 @@ def get_register_controller():
     return model.register_form()
 
 #-----------------------------------------------------------------------------
-
-
-
 # Attempt the login
 @post('/login')
 def post_login():
@@ -116,10 +114,29 @@ def post_login():
     # Handle the form processing
     username = request.forms.get('username')
     password = request.forms.get('password')
+
+    print(username)
+    print(password)
     
     # Call the appropriate method
     return model.login_check(username, password)
 
+#-----------------------------------------------------------------------------
+# Post a new psot
+@post('/post_discussion')
+def post_discussion():
+
+    # Handle the form processing, username in model.py
+    post = request.forms.get('post')
+    category = request.forms.get('category')
+
+    print("post: " + post)
+    print("category: " + category)
+
+    if len(post) > 254:
+        return template('./templates/post_failed.tpl')
+
+    return model.post(post, category)
 
 
 #-----------------------------------------------------------------------------
@@ -148,10 +165,24 @@ def post_register():
 
 
 #-----------------------------------------------------------------------------
+# Attempt to make a new post
+@get('/try_new_post')
+def try_new_post():
+    print("try new post")
+    '''
+        will first check if the user has login
+        then check if been muted
+        if all conditions met make a new post box for the user
+    '''
+    cur_name = model.get_username()
+    if cur_name == "tourist":
+        return model.register_form()
+    if cur_name == "muted":
+        return template('./templates/muted_message.tpl')
+    else:
+        return template('./templates/new_post.tpl')
 
-
-
-
+#-----------------------------------------------------------------------------
 @get('/about')
 def get_about():
     '''
@@ -214,6 +245,18 @@ def get_tut():
         Serves the tutorial page
     '''
     return model.tut()
+
+
+#-----------------------------------------------------------------------------
+
+@get('/discussion')
+def get_tut():
+    '''
+        get_tut
+        
+        Serves the tutorial page
+    '''
+    return model.discussion()
 
 
 #-----------------------------------------------------------------------------

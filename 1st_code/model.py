@@ -5,6 +5,10 @@
     It should exist as a separate layer to any database or data structure that you might be using
     Nothing here should be stateful, if it's stateful let the database handle it
 '''
+from os import close
+from sqlite3.dbapi2 import complete_statement
+from string import Template
+from bottle import template
 import view
 import random
 import sqlite3
@@ -97,7 +101,7 @@ def login_check(username, password):
         err_str = "Incorrect :("
         login = False
     
-        
+
     if login:
         global cur_username
         cur_username = username
@@ -147,7 +151,7 @@ def profile():
     c.execute("SELECT admin,mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
     if cur_data is None:
-            return page_view("profile", cur_name=cur_username, mute = "Normal")
+        return page_view("profile", cur_name=cur_username, mute = "Normal")
     if cur_data[0] == 1:
         return page_view("admin", cur_name=cur_username)
     else:
@@ -155,6 +159,21 @@ def profile():
             return page_view("profile", cur_name=cur_username, mute = "Muted")
         elif (cur_data[1] == 0):
             return page_view("profile", cur_name=cur_username, mute = "Normal")
+
+def get_username():
+    # returns the name
+    # first check if is muted
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT mute FROM user WHERE username = ?", (cur_username,))
+    cur_data = c.fetchone()
+
+    if cur_data is None:
+        return "tourist"
+    elif cur_data[0] == 1:
+        return "muted"
+
+    return cur_username
     
 
 def update(old, new):
@@ -212,6 +231,14 @@ def tut():
     # returns the view for tutorial page
     return page_view("tut")
 #-----------------------------------------------------------------------------
+# Discussion Board
+#-----------------------------------------------------------------------------
+def discussion():
+    # returns the view for tutorial page
+    return page_view("discussion")
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
 # Admin
 #-----------------------------------------------------------------------------
 # def admin():
@@ -238,7 +265,7 @@ def add_user(new_name):
     else:
         c.execute("INSERT INTO user(username, password) VALUES (?,?)", (new_name, 123))
         conn.commit()
-        c.close()
+        conn.close()
         return page_view("add_success", name = new_name)
 
 def delete_user(delete_name):
@@ -252,7 +279,7 @@ def delete_user(delete_name):
     else:
         c.execute("DELETE FROM user WHERE username = ?", (delete_name,))
         conn.commit()
-        c.close()
+        conn.close()
         return page_view("delete_success", name = delete_name)
 
 def mute_user(mute_name):
@@ -266,7 +293,7 @@ def mute_user(mute_name):
     else:
         c.execute("UPDATE user SET mute = ? WHERE username = ?", (1, mute_name))
         conn.commit()
-        c.close()
+        conn.close()
         return page_view("mute_success", name = mute_name)
 
 def unmute_user(unmute_name):
@@ -280,6 +307,31 @@ def unmute_user(unmute_name):
     else:
         c.execute("UPDATE user SET mute = ? WHERE username = ?", (0, unmute_name))
         conn.commit()
-        c.close()
-        return page_view("unmute_success", name = unmute_name)
+        conn.close()
+        return page_view("unmute_sucscess", name = unmute_name)
 #-----------------------------------------------------------------------------
+# New Post
+# -----------------------------------------------------------------------------
+def post(post, category):
+
+# first insert a new post
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO discussion(username, txt, category) VALUES (?, ?, ?)", (cur_username, post, category))
+    conn.commit()
+    conn.close()
+
+# then fetch all the post in user.db
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM discussion")
+    cur_data = c.fetchall()
+    print(cur_data)
+    dis_list = []
+    for a in cur_data:
+        dis_list.append(a[0])
+
+    conn.commit()
+    conn.close()
+
+    return page_view("discussion", dus_list=dis_list)
