@@ -12,6 +12,7 @@ from bottle import template
 import view
 import random
 import sqlite3
+import bottle
 # Initialise our views, all arguments are defaults for the template
 page_view = view.View()
 # Initialise a variable which is the current user name, the default one is "tourist"
@@ -308,7 +309,7 @@ def unmute_user(unmute_name):
         c.execute("UPDATE user SET mute = ? WHERE username = ?", (0, unmute_name))
         conn.commit()
         conn.close()
-        return page_view("unmute_sucscess", name = unmute_name)
+        return page_view("unmute_success", name = unmute_name)
 #-----------------------------------------------------------------------------
 # New Post
 # -----------------------------------------------------------------------------
@@ -334,4 +335,35 @@ def post(post, category):
     conn.commit()
     conn.close()
 
-    return page_view("discussion", dus_list=dis_list)
+    return page_view("discussion",  dis_list=dis_list)
+
+
+#-----------------------------------------------------------------------------
+# clear discussion
+# -----------------------------------------------------------------------------
+def clear_discussion():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM discussion")
+    conn.commit()
+    conn.close()
+    return page_view("discussion", template_extension=".tpl", dis_list=None)
+
+#-----------------------------------------------------------------------------
+# accessing all posts
+#-----------------------------------------------------------------------------
+def dis_list():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM discussion")
+    cur_data = c.fetchall()
+    dis_list = []
+    for e in cur_data:
+        dis_list.append(e)
+
+    conn.commit()
+    conn.close()
+
+    return dis_list
+    
+

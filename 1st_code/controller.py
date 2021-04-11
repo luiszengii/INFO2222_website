@@ -114,9 +114,6 @@ def post_login():
     # Handle the form processing
     username = request.forms.get('username')
     password = request.forms.get('password')
-
-    print(username)
-    print(password)
     
     # Call the appropriate method
     return model.login_check(username, password)
@@ -130,8 +127,8 @@ def post_discussion():
     post = request.forms.get('post')
     category = request.forms.get('category')
 
-    print("post: " + post)
-    print("category: " + category)
+    # print("post: " + post)
+    # print("category: " + category)
 
     if len(post) > 254:
         return template('./templates/post_failed.tpl')
@@ -168,7 +165,6 @@ def post_register():
 # Attempt to make a new post
 @get('/try_new_post')
 def try_new_post():
-    print("try new post")
     '''
         will first check if the user has login
         then check if been muted
@@ -249,18 +245,6 @@ def get_tut():
 
 #-----------------------------------------------------------------------------
 
-@get('/discussion')
-def get_tut():
-    '''
-        get_tut
-        
-        Serves the tutorial page
-    '''
-    return model.discussion()
-
-
-#-----------------------------------------------------------------------------
-
 @get('/user_list')
 def get_user_list():
     '''
@@ -291,3 +275,21 @@ def unmute_user():
     unmuted_user_name = request.forms.get('unmuted_user')
     return model.unmute_user(unmuted_user_name)
 #-----------------------------------------------------------------------------
+# delete all posts
+#-----------------------------------------------------------------------------
+@get('/clear_discussion')
+def clear_discussion():
+    return model.clear_discussion()
+
+#-----------------------------------------------------------------------------
+# accessing all posts
+#-----------------------------------------------------------------------------
+
+@get('/discussion')
+def get_discussion():
+    '''
+        get_tut
+        
+        Serves the tutorial page
+    '''
+    return template('./templates/discussions', dis_list=model.dis_list())

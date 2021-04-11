@@ -1,26 +1,36 @@
 <p>
     <style>
-        p {text-align: center;}
-        form {text-align: center;}
+        p {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        li {
+            border: 0px;
+            font-size: xx-large;
+        }
     </style>
-    <p></p>
-    <p style="text-align:center; font-size:30px">User profile</p>
-    <p></p>
-    <p style="text-align:left; font-size:26px">1. Name: ${cur_name}</p>
-    <p></p>
-    <p style="text-align:left; font-size:26px">2. Role: User</p>
-    <p></p>
-    <p style="text-align:left; font-size:26px">3. Current state: ${mute}</p>
-    <p></p>
-    <p style="text-align:left; font-size:26px">4. Change password: </p>
-    <form style="text-align:left; font-size:22px" action="/profile_0" method="post">
-        Current password: <input name="old_password" type="password" />
+
+<ul class="tutorial" style="border: 1px solid gray;position: relative;margin: 0px;width: 100%; top:auto; left: auto;">
+    <li class="tutorial">Name: ${cur_name}</li>
+    <li class="tutorial">Role: User</li>
+    <li class="tutorial">Current state: ${mute} (1 for muted, 0 for unmuted)</li>
+</ul>
+
+<h2>Change Password</h2>
+<form style="text-align:left; font-size:22px" action="/profile_0" method="post">
+    Current password: <input name="old_password" type="password" />
     </br>
-        New password: <input name="new_password" type="password" />
+    New password: <input name="new_password" type="password" />
     </br>
-        Retype password: <input name="confirm_password" type="password" />
+    Retype password: <input name="confirm_password" type="password" />
     </br>
-        <input value="Change password" type="submit" />
-    </form>
+</br>
+    <input value="Change password" type="submit" />
+</form>
+
 </p>
 </center>

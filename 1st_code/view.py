@@ -3,6 +3,7 @@
 # You can find a fuller explanation for this file in the README file
 #-----------------------------------------------------------------------------
 
+from sqlite3.dbapi2 import TimeFromTicks
 import string
 
 class View():
