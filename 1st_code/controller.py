@@ -25,7 +25,7 @@ def serve_pictures(picture):
 
         Returns a static file object containing the requested picture
     '''
-    return static_file(picture, root='/home/rh/info2222_2021_Team4/1st_code/static/img/')
+    return static_file(picture, root='static/img/')
 
 #-----------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ def serve_css(css):
 
         Returns a static file object containing the requested css
     '''
-    return static_file(css, root='/home/rh/info2222_2021_Team4/1st_code/static/css/')
+    return static_file(css, root='static/css/')
 
 #-----------------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ def serve_js(js):
 
         Returns a static file object containing the requested javascript
     '''
-    return static_file(js, root='/home/rh/info2222_2021_Team4/1st_code/static/js/')
+    return static_file(js, root='static/js/')
 
 #-----------------------------------------------------------------------------
 # Pages
@@ -127,8 +127,11 @@ def post_discussion():
     post = request.forms.get('post')
     category = request.forms.get('category')
 
+    # print("post: " + post)
+    # print("category: " + category)
+
     if len(post) > 254:
-        return template('/home/rh/info2222_2021_Team4/1st_code/templates/post_failed.tpl')
+        return template('./templates/post_failed.tpl')
 
     return model.post(post, category)
 
@@ -171,9 +174,9 @@ def try_new_post():
     if cur_name == "tourist":
         return model.register_form()
     if cur_name == "muted":
-        return template('/home/rh/info2222_2021_Team4/1st_code/templates/muted_message.tpl')
+        return template('./templates/muted_message.tpl')
     else:
-        return template('/home/rh/info2222_2021_Team4/1st_code/templates/new_post.tpl')
+        return template('./templates/new_post.tpl')
 
 #-----------------------------------------------------------------------------
 @get('/about')
@@ -250,7 +253,7 @@ def get_user_list():
         serves for getting users list
     '''
 
-    return template('/home/rh/info2222_2021_Team4/1st_code/templates/user_list', user_list = model.user_list())
+    return template('./templates/user_list', user_list = model.user_list())
 
 @post('/profile_1')
 def add_user():
@@ -289,4 +292,4 @@ def get_discussion():
         
         Serves the tutorial page
     '''
-    return template('/home/rh/info2222_2021_Team4/1st_code/templates/discussions', dis_list=model.dis_list())
+    return template('./templates/discussions', dis_list=model.dis_list())
