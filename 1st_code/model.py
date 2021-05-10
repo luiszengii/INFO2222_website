@@ -57,7 +57,7 @@ def register_form():
 #-----------------------------------------------------------------------------
 def register(username, password):
    
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -91,7 +91,7 @@ def login_check(username, password):
 
         Returns either a view for valid credentials, or a view for invalid credentials
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT 1 FROM user WHERE username = ? and password =?", (username,password))
     cur_data = c.fetchone()
@@ -147,7 +147,7 @@ def profile():
         about
         Returns the view for the user profile page
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT admin,mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
@@ -164,7 +164,7 @@ def profile():
 def get_username():
     # returns the name
     # first check if is muted
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
@@ -187,7 +187,7 @@ def update(old, new):
 
         Returns either a view for valid credentials, or a view for invalid credentials
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM user WHERE password=? AND username=?", (old, cur_username))
     cur_data = c.fetchone()
@@ -246,7 +246,7 @@ def discussion():
 #     return page_view("admin", cur_name=cur_username)
 
 def user_list():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     cur_data = c.fetchall()
@@ -256,7 +256,7 @@ def user_list():
     return list
 
 def add_user(new_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -270,7 +270,7 @@ def add_user(new_name):
         return page_view("add_success", name = new_name)
 
 def delete_user(delete_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -284,7 +284,7 @@ def delete_user(delete_name):
         return page_view("delete_success", name = delete_name)
 
 def mute_user(mute_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -298,7 +298,7 @@ def mute_user(mute_name):
         return page_view("mute_success", name = mute_name)
 
 def unmute_user(unmute_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -316,14 +316,14 @@ def unmute_user(unmute_name):
 def post(post, category):
 
 # first insert a new post
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("INSERT INTO discussion(username, txt, category) VALUES (?, ?, ?)", (cur_username, post, category))
     conn.commit()
     conn.close()
 
 # then fetch all the post in user.db
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM discussion")
     cur_data = c.fetchall()
@@ -342,7 +342,7 @@ def post(post, category):
 # clear discussion
 # -----------------------------------------------------------------------------
 def clear_discussion():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("DELETE FROM discussion")
     conn.commit()
@@ -353,7 +353,7 @@ def clear_discussion():
 # accessing all posts
 #-----------------------------------------------------------------------------
 def dis_list():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM discussion")
     cur_data = c.fetchall()
