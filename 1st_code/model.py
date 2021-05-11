@@ -10,6 +10,7 @@ from sqlite3.dbapi2 import complete_statement
 from string import Template
 from bottle import template
 import view
+import controller
 import random
 import sqlite3
 import bottle
@@ -57,7 +58,7 @@ def register_form():
 #-----------------------------------------------------------------------------
 def register(username, password):
    
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -91,7 +92,7 @@ def login_check(username, password):
 
         Returns either a view for valid credentials, or a view for invalid credentials
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT 1 FROM user WHERE username = ? and password =?", (username,password))
     cur_data = c.fetchone()
@@ -147,7 +148,7 @@ def profile():
         about
         Returns the view for the user profile page
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT admin,mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
@@ -164,7 +165,7 @@ def profile():
 def get_username():
     # returns the name
     # first check if is muted
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT mute FROM user WHERE username = ?", (cur_username,))
     cur_data = c.fetchone()
@@ -187,7 +188,7 @@ def update(old, new):
 
         Returns either a view for valid credentials, or a view for invalid credentials
     '''
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM user WHERE password=? AND username=?", (old, cur_username))
     cur_data = c.fetchone()
@@ -246,7 +247,7 @@ def discussion():
 #     return page_view("admin", cur_name=cur_username)
 
 def user_list():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     cur_data = c.fetchall()
@@ -256,7 +257,7 @@ def user_list():
     return list
 
 def add_user(new_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -270,7 +271,7 @@ def add_user(new_name):
         return page_view("add_success", name = new_name)
 
 def delete_user(delete_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -284,7 +285,7 @@ def delete_user(delete_name):
         return page_view("delete_success", name = delete_name)
 
 def mute_user(mute_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -298,7 +299,7 @@ def mute_user(mute_name):
         return page_view("mute_success", name = mute_name)
 
 def unmute_user(unmute_name):
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT username FROM user")
     
@@ -312,48 +313,38 @@ def unmute_user(unmute_name):
         return page_view("unmute_success", name = unmute_name)
 #-----------------------------------------------------------------------------
 # New Post
-# -----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
 def post(post, category):
 
 # first insert a new post
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("INSERT INTO discussion(username, txt, category) VALUES (?, ?, ?)", (cur_username, post, category))
     conn.commit()
     conn.close()
 
-# then fetch all the post in user.db
-    conn = sqlite3.connect('user.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM discussion")
-    cur_data = c.fetchall()
-    print(cur_data)
-    dis_list = []
-    for a in cur_data:
-        dis_list.append(a[0])
-
-    conn.commit()
-    conn.close()
-
-    return page_view("discussion",  dis_list=dis_list)
+    # to get all the posts we fetched from user.db to the page of "discussion", the pass in variable is called dis_list, contains all posts
+    # but because the page_view() only render html files, we have to directly call controller to return the html page
+    return controller.get_discussion()
+    # return page_view("discussion", dis_list=dis_list)
 
 
 #-----------------------------------------------------------------------------
 # clear discussion
 # -----------------------------------------------------------------------------
 def clear_discussion():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("DELETE FROM discussion")
     conn.commit()
     conn.close()
-    return page_view("discussion", template_extension=".tpl", dis_list=None)
+    return controller.get_discussion()
 
 #-----------------------------------------------------------------------------
 # accessing all posts
 #-----------------------------------------------------------------------------
 def dis_list():
-    conn = sqlite3.connect('user.db')
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
     c = conn.cursor()
     c.execute("SELECT * FROM discussion")
     cur_data = c.fetchall()
@@ -364,6 +355,32 @@ def dis_list():
     conn.commit()
     conn.close()
 
-    return dis_list
+    # then fetch all the post in user.db
+    conn = sqlite3.connect('/home/rh/info2222_2021_Team4/1st_code/user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM discussion")
+    cur_data = c.fetchall()
+    print("all the post up to now: ", cur_data)
+    conn.close()
+
+    web_list = []
+    html_list = []
+    css_list = []
+    js_list = []
+
+    for elem in dis_list:
+        if elem[2] == "web":
+            web_list.append(elem)
+        elif elem[2] == "html":
+            html_list.append(elem)
+        elif elem[2] == "css":
+            css_list.append(elem)
+        elif elem[2] == "js":
+            js_list.append(elem)
+
+    list_of_all = [web_list, html_list, css_list, js_list]
+    print(list_of_all)
+
+    return list_of_all
     
 

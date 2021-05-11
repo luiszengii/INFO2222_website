@@ -27,33 +27,49 @@
     <li class="tutorial"><a class="tutorial" href="#js">JavaScript</a></li>
   </ul>
 
+  %
   <div id="web" class="tutorial">
     <h2>Web Basics</h2>
-    % for elem in dis_list:
-        <p>{{elem[0]}}: {{elem[1]}}</p>
+    % if len(dis_list[0]) > 0:
+      % for elem in dis_list[0]:
+          <p>{{elem[0]}}: {{elem[1]}}</p>
+      % end
     % end
   </div>
+  %
 
-<div id="html" class="tutorial">
-    <h2>Html</h2>
-    % for elem in dis_list:
-        <p>{{elem[0]}}: {{elem[1]}}</p>
+  %
+  <div id="html" class="tutorial">
+      <h2>Html</h2>
+      % if len(dis_list[1]) > 0:
+      % for elem in dis_list[1]:
+          <p>{{elem[0]}}: {{elem[1]}}</p>
+      % end
     % end
-</div>
+  </div>
+  %
 
+  %
   <div id="css" class="tutorial">
     <h2>CSS</h2>
-    % for elem in dis_list:
-        <p>{{elem[0]}}: {{elem[1]}}</p>
+    % if len(dis_list[2]) > 0:
+      % for elem in dis_list[2]:
+          <p>{{elem[0]}}: {{elem[1]}}</p>
+      % end
     % end
   </div>
+  %
 
+  %
   <div id="js" class="tutorial">
     <h2>JavaScript</h2>
-    % for elem in dis_list:
-        <p>{{elem[0]}}: {{elem[1]}}</p>
+    % if len(dis_list[3]) > 0:
+      % for elem in dis_list[3]:
+          <p>{{elem[0]}}: {{elem[1]}}</p>
+      % end
     % end
   </div>
+  %
 
 
 </body>
