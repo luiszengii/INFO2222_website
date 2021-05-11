@@ -1,4 +1,3 @@
-from waf import verify_email
 import requests
 import time
 import getpass
@@ -14,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 #------------------------------------------------
 
 url = "http://10.86.227.4:8080/"
-PATH = "home/hr/info2222_2021_Team4/1st_code/chromedriver"
+PATH = "/home/rh/info2222_2021_Team4/1st_code/chromedriver"
 chrome_options = Options()
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-gpu")

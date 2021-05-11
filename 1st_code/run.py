@@ -104,5 +104,4 @@ def run_commands(args):
             print("Command '{command}' not found".format(command=command))
 
 #-----------------------------------------------------------------------------
-
 run_commands(sys.argv)
