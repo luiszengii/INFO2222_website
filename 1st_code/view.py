@@ -64,7 +64,7 @@ class View():
             :: kwargs :: A dictionary of key value pairs to pass to the template
         '''
         path = self.template_path + filename + self.template_extension
-        file = open(path, 'r')
+        file = open(path, 'r', encoding="utf-8")
         text = ""
         for line in file:
             text+= line
