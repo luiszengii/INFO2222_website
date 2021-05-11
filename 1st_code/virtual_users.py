@@ -11,8 +11,8 @@ from selenium import webdriver
 
 #------------------------------------------------
 
-target_url = "https://canvas.sydney.edu.au/courses/30588/groups#tab-6293"
-PATH = "/mnt/c/Users/82751/Documents/2021 S1/INFO2222/lec slides/security/set1/chromedriver.exe"
+url = "http://10.86.227.4:8080/"
+PATH = "home/hr/info2222_2021_Team4/1st_code/chromedriver"
 
 #------------------------------------------------
 # Useage: 
@@ -26,7 +26,8 @@ class VirtualUser():
         
 
 if __name__ == '__main__':
-    while True:
-        x = random.randint(1,3)
-        print(x)
+
+    driver = webdriver.Chrome(PATH)
+    driver.get(url)
+
     print("finished")
