@@ -1,3 +1,4 @@
+from waf import verify_email
 import requests
 import time
 import getpass
@@ -8,16 +9,18 @@ import csv
 import random
 
 from selenium import webdriver
-
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 #------------------------------------------------
 
 url = "http://10.86.227.4:8080/"
 PATH = "home/hr/info2222_2021_Team4/1st_code/chromedriver"
+chrome_options = Options()
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
 
-#------------------------------------------------
-# Useage: 
-# python canvas_group_scraper.py <target groups page>
-#------------------------------------------------
 class VirtualUser():
 
     def tourist():
@@ -27,7 +30,19 @@ class VirtualUser():
 
 if __name__ == '__main__':
 
-    driver = webdriver.Chrome(PATH)
+    # x = random.randint(1,3)
+    # if x == 1:
+    #     VirtualUser.tourist()
+    # elif x == 2:
+    #     VirtualUser.user()
+    # elif x == 3:
+    #     VirtualUser.admin()
+
+    driver = webdriver.Chrome(options=chrome_options, executable_path=PATH)
     driver.get(url)
 
+    """ to test driver is set properly  """
+    print(driver.page_source.encode("utf-8"))
+
+    driver.quit()
     print("finished")
