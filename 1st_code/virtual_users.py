@@ -41,13 +41,43 @@ def tourist(driver):
     print("home button printed, now at home page")
 
     # now go to login page, try random username and password
-    print("going to type smth special")
+    print("now go to login")
     login_button.click()
     print("try click login without typing anything")
-    login = driver.find_element_by_xpath("/html/body/form/input[3]")
-    login.click()
-    back_to_login = driver.find_element_by_xpath("/html/body/p[4]/a")
-    back_to_login.click()
+    driver.find_element_by_xpath("/html/body/form/input[3]").click()
+    print("cannot login :(")
+    driver.find_element_by_xpath("/html/body/p[4]/a").click()
+
+    print("try usernmae and password do not exsit")
+    driver.find_element_by_xpath("/html/body/form/input[1]").send_keys("azhe")
+    driver.find_element_by_xpath("/html/body/form/input[2]").send_keys("azhe")
+    driver.find_element_by_xpath("/html/body/form/input[3]").click()
+    print("cannot log in")
+    driver.find_element_by_xpath("/html/body/p[4]/a").click()
+
+    print("try to go to profile")
+    driver.find_element_by_xpath("/html/body/ul/li[4]/a").click()
+    print("try to change password")
+    driver.find_element_by_xpath("/html/body/form/input[1]").send_keys("azhe")
+    driver.find_element_by_xpath("/html/body/form/input[2]").send_keys("azhe")
+    driver.find_element_by_xpath("/html/body/form/input[3]").send_keys("azhe")
+    driver.find_element_by_xpath("/html/body/form/input[4]").click()
+    print("okay we cannot change because actually we dont have a password")
+    driver.find_element_by_xpath("/html/body/ul/li[4]/a").click()
+
+    print("now go to tut page")
+    driver.find_element_by_xpath("/html/body/ul/li[5]/a").click()
+    print("try to go to CSS")
+    driver.find_element_by_xpath("/html/body/ul[2]/li[3]/a").click()
+    print("okay it works!")
+    driver.find_element_by_xpath("/html/body/ul[2]/li[1]/a").click()
+
+    print("lets try post")
+    driver.find_element_by_xpath("/html/body/ul[1]/li[6]/a").click()
+    print("now try to post")
+    driver.find_element_by_xpath("/html/body/form/button").click()
+    print("okay seems like we have to login or register")
+    driver.find_element_by_xpath("/html/body/p[5]/a").click()
 
     
 
