@@ -25,6 +25,7 @@ driver.get(url)
 
 home_button = driver.find_element_by_xpath("/html/body/ul/li[1]/a")
 login_button = driver.find_element_by_xpath("/html/body/ul/li[2]/a")
+register_button = driver.find_element_by_xpath("/html/body/p[9]/a")
 about_button = driver.find_element_by_xpath("/html/body/ul/li[3]/a")
 profile_button = driver.find_element_by_xpath("/html/body/ul/li[4]/a")
 tutorial_button = driver.find_element_by_xpath("/html/body/ul/li[5]/a")
@@ -37,7 +38,7 @@ def tourist(driver):
     # click home button to start
     print("ready to print button")
     home_button.click()
-    print("home button printed, new at home page")
+    print("home button printed, now at home page")
 
     # now go to login page, try random username and password
     print("going to type smth special")
@@ -52,7 +53,75 @@ def tourist(driver):
 
     
 def user():
-    print("fist login, then look through the tutorial page, then ")
+    print("I will regist as a user first then I can post and check my own profile")
+    print("I will fist register, then log in, then look through the tutorial page, then go to profile page, then make some post")
+
+
+    # click home button to start
+    print("ready to print button")
+    home_button.click()
+    print("home button printed, now at home page")
+
+    # now go to register page, create a new account
+    print("going to register")
+    login_button.click()
+    register_button.click()
+    print("try to create a new account")
+    set_useranme = driver.find_element_by_xpath("/html/body/form/p[1]/input")
+    set_username.send_keys("tester")
+    set_password = driver.find_element_by_xpath("/html/body/form/p[2]/input")
+    set_password.send_keys("tester1")
+    set_confirm_password = driver.find_element_by_xpath("/html/body/form/p[3]/input")
+    set_confirm_password.send_keys("tester1")
+    driver.find_element_by_xpath("/html/body/form/p[5]/input").click()
+    print("finish register")
+    driver.find_element_by_xpath("/html/body/p[2]/a").click()
+    print("come back to login")
+    input_username = driver.find_element_by_xpath("/html/body/form/input[1]")
+    input_username.send_keys("tester")
+    input_password = driver.find_element_by_xpath("/html/body/form/input[2]")
+    input_username.send_keys("tester1")
+    driver.find_element_by_xpath("/html/body/form/input[3]").click()
+    print("login successfully")
+
+    # now go to tut page
+    print("I will go through tut page")
+    driver.find_element_by_xpath("/html/body/p[3]/a").click()
+    print("I will try to jump to CSS part for example")
+    driver.find_element_by_xpath("/html/body/ul[2]/li[3]/a").click()
+    print("ohhhhhhhhhhh!It works")
+
+    # now go to profile and tyr to change password
+    print("I will go to see the profile")
+    driver.find_element_by_xpath("/html/body/ul[1]/li[4]/a").click()
+    print("now try to change password!")
+    driver.find_element_by_xpath("/html/body/form/input[1]").send_keys("tester1")
+    driver.find_element_by_xpath("/html/body/form/input[2]").send_keys("tester2")
+    driver.find_element_by_xpath("/html/body/form/input[3]").send_keys("tester2")
+    driver.find_element_by_xpath("/html/body/form/input[4]").click()
+    print("okaaaaaaaaaaay!Then back to login an have a try")
+    driver.find_element_by_xpath("/html/body/ul[1]/li[2]/a").click()
+    driver.find_element_by_xpath("/html/body/form/input[1]").send_keys("tester")
+    driver.find_element_by_xpath("/html/body/form/input[2]").send_keys("tester2")
+    driver.find_element_by_xpath("/html/body/form/input[3]").click()
+    print("ohhhhhhhhhhhh it works!")
+
+    #now go to disccusion try to post sth
+    print("now go to discussion")
+    driver.find_element_by_xpath("/html/body/ul/li[6]/a").click()
+    print("trying to post now!")
+    driver.find_element_by_xpath("/html/body/form/button").click()
+    driver.find_element_by_xpath("/html/body/div[1]/form/input").send_keys("Yifan is handsome")
+    driver.find_element_by_xpath("/html/body/div[2]/select").click()
+    print("post sth in CSS for example!")
+    driver.find_element_by_xpath("/html/body/div[2]/select/option[3]").click()
+    driver.find_element_by_xpath("/html/body/input").click()
+    print("lets have a check")
+    driver.find_element_by_xpath("/html/body/ul[2]/li[3]/a").click()
+    print("woooooooooooooooooooooooooooooooow!")
+
+
+
 
 def admin():
     print("login as admin")
