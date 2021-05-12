@@ -55,6 +55,7 @@ def tourist(driver):
     print("cannot log in")
     driver.find_element_by_xpath("/html/body/p[4]/a").click()
 
+    # now go to profile page
     print("try to go to profile")
     driver.find_element_by_xpath("/html/body/ul/li[4]/a").click()
     print("try to change password")
@@ -64,7 +65,8 @@ def tourist(driver):
     driver.find_element_by_xpath("/html/body/form/input[4]").click()
     print("okay we cannot change because actually we dont have a password")
     driver.find_element_by_xpath("/html/body/ul/li[4]/a").click()
-
+    
+    # now go to tut page
     print("now go to tut page")
     driver.find_element_by_xpath("/html/body/ul/li[5]/a").click()
     print("try to go to CSS")
@@ -72,6 +74,7 @@ def tourist(driver):
     print("okay it works!")
     driver.find_element_by_xpath("/html/body/ul[2]/li[1]/a").click()
 
+    # now go to discussion page
     print("lets try post")
     driver.find_element_by_xpath("/html/body/ul[1]/li[6]/a").click()
     print("now try to post")
