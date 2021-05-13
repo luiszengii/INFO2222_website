@@ -284,7 +284,7 @@ def clear_discussion():
 # accessing all posts
 #-----------------------------------------------------------------------------
 
-@get('/discussion')
+@route('/discussion')
 def get_discussion():
     '''
         get_tut
