@@ -176,9 +176,9 @@ def try_new_post():
     if cur_name == "tourist":
         return model.register_form()
     if cur_name == "muted":
-        return template('/home/app/templates/muted_message.tpl')
+        return template('./templates/muted_message')
     else:
-        return template('/home/app/templates/new_post.tpl')
+        return template('./templates/new_post')
 
 #-----------------------------------------------------------------------------
 @get('/about')
