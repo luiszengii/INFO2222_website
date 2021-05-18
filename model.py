@@ -14,7 +14,6 @@ import controller
 import random
 import sqlite3
 import bottle
-from bottle import *
 # Initialise our views, all arguments are defaults for the template
 page_view = view.View()
 # Initialise a variable which is the current user name, the default one is "tourist"
@@ -100,20 +99,16 @@ def login_check(username, password):
    
     login = True
     
-    if not cur_data:
+    if  not cur_data:
         err_str = "Incorrect :("
         login = False
     
+
     if login:
-        """ send a cookie to client storing the username and a valid login """
+        global cur_username
         cur_username = username
-        # if already logged in do not perform login again
-        if request.get_cookie("loggedIn"):
-            return page_view("invalid", reason="already logged in as" + username + "!!!")
-        else:
-            response.set_cookie("loggedIn", "yes")
-            response.set_cookie("username", username)
-            return page_view("valid", name=username)
+        #change the cur_username to global variable
+        return page_view("valid", name=username)
     else:
         return page_view("invalid", reason=err_str)
 
