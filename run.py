@@ -13,4 +13,4 @@ reloader=True
 app = application = bottle.default_app()
 
 if __name__ == '__main__':
-    run(host=host, port=port, debug=debug)
+    run(host=host, port=port, debug=False)
