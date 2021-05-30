@@ -8,6 +8,7 @@ from os import curdir
 from bottle import route, get, post, error, request, static_file, template
 
 import model
+import re
 
 #-----------------------------------------------------------------------------
 # Static file paths
@@ -117,6 +118,12 @@ def post_login():
     # Handle the form processing
     username = request.forms.get('username')
     password = request.forms.get('password')
+    if "=" in username or  "-" in username or "=" in password or "-" in password or "<" in username or "'" in username or '"' in username:
+        return '''<style>
+                  p {text-align: center;}
+                  form {text-align: center;}
+                  </style><p>Bad input</p>
+                  <p><a href="/login">back to login page</a></p>'''
     
     # Call the appropriate method
     return model.login_check(username, password)
@@ -152,14 +159,36 @@ def post_register():
     password = request.forms.get('password')
     cpassword = request.forms.get('confirm password')
     # Call the appropriate method
+    if "=" in username or "<" in username or "'" in username or '"' in username:
+        return '''<style>
+                  p {text-align: center;}
+                  form {text-align: center;}
+                  </style><p>Bad username</p>
+                  <p><a href="/register">back to register page</a></p>'''
     if password == cpassword:
-        return model.register(username, password)
+        if len(password) >5 and len(password)<10 and "=" not in password and "-" not in password:
+            if re.match("^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).*$",password )==None:
+                return '''<style>
+                          p {text-align: center;}
+                          form {text-align: center;}
+                          </style><p>The passwords must contain a captial word, a lower word and a number</p>
+                          <p><a href="/register">back to register page</a></p>'''
+            if re.match("^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).*$",password )!=None:
+                return model.register(username, password)
+        else:
+            return '''<style>
+                      p {text-align: center;}
+                      form {text-align: center;}
+                      </style><p>The passwords must not contain special symbol</p>
+                      </style><p>The password's length must in 5-10</p>
+                      <p><a href="/register">back to register page</a></p>'''
+
     if password != cpassword:
         return '''<style>
-    	      p {text-align: center;}
-                      form {text-align: center;}
-                      </style><p>The two passwords entered do not match </p>
- 	     <p><a href="/register">back to register page</a></p>'''
+                  p {text-align: center;}
+                  form {text-align: center;}
+                  </style><p>The two passwords entered do not match </p>
+                  <p><a href="/register">back to register page</a></p>'''
 
 
 
@@ -211,7 +240,12 @@ def post_update():
     old_password = request.forms.get('old_password')
     new_password = request.forms.get('new_password')
     retype_password = request.forms.get('confirm_password')
-
+    if "=" in new_password or "-" in new_password or "'" in new_password or "<" in new_password or '"' in new_password or "=" in old_password or "-" in old_password or "'" in old_password or "<" in old_password or '"' in old_password:
+        return '''<style>
+                  p {text-align: center;}
+                  form {text-align: center;}
+                  </style><p>The passwords must not contain special symbol</p>
+                  <p><a href="/home">back to home page</a></p>'''
     if new_password == retype_password:
         return model.update(old_password, new_password)
     else:
